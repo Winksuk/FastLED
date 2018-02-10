@@ -1,0 +1,72 @@
+#include "FastLED.h"
+#define LED_TYPE NEOPIXEL  // Strip type: NEOPIXEL, APA102, LPD8806, etc.
+#define DATA_PIN 6
+#define NUM_LEDS 300
+CRGB leds[NUM_LEDS];
+
+int16_t positionDot1 = 2;           // Set initial start position of pixels
+int16_t positionDot2 = 3;         
+int16_t positionDot3 = 4;
+int16_t positionDot4 = 5; 
+int16_t positionDot5 = 6; 
+int16_t positionDot6 = 7; 
+int16_t positionDot7 = 8;
+int16_t positionDot8 = 9;  
+int16_t positionDot9 = 1;  
+int8_t delta = 1;               // Using a negative value will move pixels backwards.
+uint16_t holdTime = 100;       /// speed
+
+
+//---------------------------------------------------------------
+void setup() {
+  Serial.begin(115200);  // Allows serial monitor output (check your baud rate)
+  delay(3000);  // Startup delay
+   FastLED.addLeds<LED_TYPE,DATA_PIN>(leds, NUM_LEDS); 
+}
+
+
+//---------------------------------------------------------------
+void loop() {  // START MAIN LOOP
+
+  EVERY_N_MILLISECONDS(holdTime) {
+
+    // Set pixel color
+    leds[positionDot1] = CRGB(31,31,31);   /// set colors 
+    leds[positionDot2] = CRGB(69,69,69);
+    leds[positionDot3] = CRGB(100,100,80);
+    leds[positionDot4] = CRGB(131,131,120);
+    leds[positionDot5] = CRGB(162,162,100);
+    leds[positionDot6] = CRGB(193,193,50);
+    leds[positionDot7] = CRGB(224,224,25);
+    leds[positionDot8] = CRGB(255,255,0);
+    leds[positionDot9] = CRGB(2,2,2);
+  
+    // Show the pixels
+    FastLED.show();
+    //delay(holdTime);  // Delay for a bit.
+   
+    // Set pixels back to Black for the next loop around.
+    leds[positionDot1] = CRGB( 0, 0,0);
+    leds[positionDot2] = CRGB( 0, 0,0);
+    leds[positionDot3] = CRGB( 0, 0,0);
+    leds[positionDot4] = CRGB( 0, 0,0);
+    leds[positionDot5] = CRGB( 0, 0,0);
+    leds[positionDot6] = CRGB( 0, 0,0);
+    leds[positionDot7] = CRGB( 0, 0,0);
+    leds[positionDot8] = CRGB( 0, 0,0);
+    leds[positionDot9] = CRGB( 0, 0,0);
+  
+    // Set new position, moving (forward or backward) by delta.
+    // NUM_LEDS is added to the position before doing the modulo
+    // to cover cases where delta is a negative value.
+    positionDot1 = (positionDot1 + delta + NUM_LEDS) % NUM_LEDS;
+    positionDot2 = (positionDot2 + delta + NUM_LEDS) % NUM_LEDS;
+    positionDot3 = (positionDot3 + delta + NUM_LEDS) % NUM_LEDS;
+    positionDot4 = (positionDot4 + delta + NUM_LEDS) % NUM_LEDS;
+    positionDot5 = (positionDot5 + delta + NUM_LEDS) % NUM_LEDS;
+    positionDot6 = (positionDot6 + delta + NUM_LEDS) % NUM_LEDS;
+    positionDot7 = (positionDot7 + delta + NUM_LEDS) % NUM_LEDS;
+    positionDot8 = (positionDot8 + delta + NUM_LEDS) % NUM_LEDS;
+    positionDot9 = (positionDot9 + delta + NUM_LEDS) % NUM_LEDS;
+     }
+} 
